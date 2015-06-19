@@ -4,6 +4,10 @@ stages:
   inputs:
   - type: git
     branch: master
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: https://hooks.slack.com/services/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
+    type: text
   jobs:
   - name: Machine translation
     type: builder
@@ -58,6 +62,10 @@ stages:
     job: Ant build
   triggers:
   - type: stage
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: https://hooks.slack.com/services/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
+    type: text
   jobs:
   - name: Docker build
     type: builder
@@ -101,6 +109,9 @@ stages:
   properties:
   - name: ROUTE_HOSTNAME
     value: ${CF_APP}
+    type: text
+  - name: SLACK_WEBHOOK_PATH
+    value: https://hooks.slack.com/services/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
     type: text
   jobs:
   - name: Group deploy
