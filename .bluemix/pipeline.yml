@@ -51,3 +51,25 @@ stages:
       space: ${CF_SPACE}
     SETUP_SERVICE_SPACE: 'true'
     WAIT_TIME: '10'
+- name: Deploy Stage
+  inputs:
+  - type: job
+    stage: Package Application
+    job: Ant build
+  triggers:
+  - type: stage
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: T03T7PX58/B067X25CJ/I9gxU8ys9j39YLui7Ol8fajO
+    type: text
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
+      application: ${CF_APP}
+    script: |-
+      #!/bin/bash
+      cf push "${CF_APP}"
