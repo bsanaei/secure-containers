@@ -15,7 +15,7 @@
 # GoLive Container service will move registry from beta (registry-ice) to production (registry) container registries
 # FROM registry-ice.ng.bluemix.net/ibmliberty
 # FROM registry.ng.bluemix.net/ibmliberty
-FROM ibmliberty
+FROM websphere-liberty
 MAINTAINER Robbie Minshall "rjminsha@us.ibm.com"
 
 # Setup logging

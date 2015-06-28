@@ -1,4 +1,4 @@
-# Example pipeline for helloworld node application using Containers  
+# Example pipeline for helloworld Java application using Containers and WebSphere Liberty  
 
 Press this button, to get your own copy of the sample running in Bluemix !
 
