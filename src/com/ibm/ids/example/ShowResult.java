@@ -46,6 +46,9 @@ public class ShowResult extends HttpServlet {
     public void doGet( HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         String name = request.getParameter( "name" );
+        Locale locale = request.getLocale();
+        ResourceBundle messages = ResourceBundle.getBundle("com.ibm.ids.example.Messages", locale);
+
         response.setContentType( "text/html" );
         PrintWriter out = response.getWriter();
 
@@ -57,7 +60,12 @@ public class ShowResult extends HttpServlet {
         }
 
         out.println( "<HTML><HEAD><TITLE>Hello World</TITLE></HEAD><BODY>" );
-        out.println( "Hello, " + name );
+        if ( name == null ){
+            String nobody = messages.getString("nobody");
+            out.println( nobody );
+        }else{ 
+            out.println( "Hello, " + name );
+        }  
         out.println( "</BODY></HTML>" );
     }
 /*
