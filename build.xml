@@ -97,6 +97,5 @@
   <target name="build-war" depends="build-project">
     <war destfile="${env.ARCHIVE_DIR}/${warname}" basedir="bin" />
   </target>
-
   
 </project>

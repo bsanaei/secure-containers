@@ -1,6 +1,8 @@
+---
 applications:
 - disk: 1024M
   path: wordcounter.war
-  domain: mybluemix.net
   memory: 512M
   instances: 1
+  name: secure-containers-eergun-1025
+  host: secure-containers-eergun-1025

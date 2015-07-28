@@ -14,12 +14,12 @@ package com.ibm.ids.example;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.*;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.owasp.esapi.ESAPI;
 
 /**
  * Servlet implementation class ShowResult
@@ -45,7 +45,8 @@ public class ShowResult extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        String name = request.getParameter( "name" );
+        //String safename = request.getParameter( "name" );
+		String safename = ESAPI.encoder().encodeForHTML(request.getParameter("name"));
         Locale locale = request.getLocale();
         ResourceBundle messages = ResourceBundle.getBundle("com.ibm.ids.example.Messages", locale);
 
@@ -54,22 +55,22 @@ public class ShowResult extends HttpServlet {
 
         // log what we received in a vulnerable way
         try{ 
-            writeToVulnerableSink(getVulnerableSource(name));
+            writeToVulnerableSink(getVulnerableSource(safename));
         }catch (Exception e){
             // ignore this, we're just logging, right?
         }
 
         out.println( "<HTML><HEAD><TITLE>Hello World</TITLE></HEAD><BODY>" );
-        if ( name == null ){
+        if ( safename == null ){
             String nobody = messages.getString("nobody");
             out.println( nobody );
         }else{ 
-            out.println( "Hello, " + name );
+            out.println( "Hello, " + safename );
         }  
         out.println( "</BODY></HTML>" );
     }
-/*
 
+	/*
     //STATIC SCAN 
     // this version of doGet filters out bad input 
     private Pattern namePattern = Pattern.compile("^[a-zA-Z]{3,10}$");
@@ -102,7 +103,8 @@ public class ShowResult extends HttpServlet {
                 }
             }  
     }
-*/
+	*/
+
     public static String getVulnerableSource(String file)
         throws java.io.IOException, java.io.FileNotFoundException {
         FileInputStream fis = new FileInputStream(file);
@@ -121,5 +123,6 @@ public class ShowResult extends HttpServlet {
         //to remove this vunerability issue use writer.append rather than writer.write 
         writer.write(str); 
         //writer.append(str);
+        writer.close();
     }
 }
