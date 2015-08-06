@@ -62,6 +62,9 @@
 							<copy todir="${env.ARCHIVE_DIR}">
 								<fileset dir="${basedir}/loggingFiles" includes="**/*" />
 							</copy>
+							<copy todir="${env.ARCHIVE_DIR}">
+								<fileset dir="${basedir}/resources" includes="**/*" />
+							</copy>
 						</tasks>
 					</configuration>
 					<goals>
