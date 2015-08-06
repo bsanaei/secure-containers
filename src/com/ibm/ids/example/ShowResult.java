@@ -44,7 +44,6 @@ public class ShowResult extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-    	//String name = request.getParameter( "name" );
     	String safename = StringEscapeUtils.escapeHtml4(request.getParameter( "name" ));
         Locale locale = request.getLocale();
         ResourceBundle messages = ResourceBundle.getBundle("com.ibm.ids.example.Messages", locale);
