@@ -15,9 +15,9 @@ stages:
     type: builder
     extension_id: ibm.devops.services.pipeline.globalization.builder
     target:
-      url: https://api.ng.bluemix.net
-      organization: eergun_org
-      space: dev
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     SETUP_SERVICE_SPACE: 'true'
     INPUT_PATTERN: Messages_en.properties
 - name: Maven
@@ -52,9 +52,9 @@ stages:
     fail_stage: false
     extension_id: ibm.devops.services.pipeline.appscan.static.builder
     target:
-      url: https://api.ng.bluemix.net
-      organization: eergun_org
-      space: dev
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     SETUP_SERVICE_SPACE: 'true'
     WAIT_TIME: '10'
 - name: Containerize
@@ -73,9 +73,9 @@ stages:
     type: builder
     extension_id: ibm.devops.services.pipeline.container.builder
     target:
-      url: https://api.ng.bluemix.net
-      organization: eergun_org
-      space: dev
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     IMAGE_NAME: secure-containers-eergun-commons-lang3-maven
     USE_CACHED_LAYERS: 'true'
     COMMAND: "#!/bin/bash\n# The following colors have been defined to help with presentation\
@@ -119,7 +119,7 @@ stages:
   - type: stage
   properties:
   - name: ROUTE_HOSTNAME
-    value: secure-containers-eergun-commons-lang3-maven
+    value: ${CF_APP}
     type: text
   - name: SLACK_WEBHOOK_PATH
     value: https://hooks.slack.com/services/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
@@ -131,12 +131,11 @@ stages:
     type: deployer
     extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
-      url: https://api.ng.bluemix.net
-      organization: eergun_org
-      space: dev
+      url: ${CF_TARGET_URL}
+      organization: ${CF_ORGANIZATION}
+      space: ${CF_SPACE}
     PORT: '80'
     DEPLOY_TYPE: red_black
-    CONTAINER_NAME: secure-containers-eergun-commons-lang3-maven
     COMMAND: "#!/bin/bash\n# The following are some example deployment scripts.  Use\
       \ these as is or fork them and include your updates here:\necho -e \"${label_color}Starting\
       \ deployment script${no_color}\"\n\n\n# To view/fork this script goto: https://github.com/Osthanes/deployscripts\n\
