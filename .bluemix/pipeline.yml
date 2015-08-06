@@ -76,7 +76,7 @@ stages:
       url: ${CF_TARGET_URL}
       organization: ${CF_ORGANIZATION}
       space: ${CF_SPACE}
-    IMAGE_NAME: secure-containers-eergun-commons-lang3-maven
+    IMAGE_NAME: ${CF_APP}
     USE_CACHED_LAYERS: 'true'
     COMMAND: "#!/bin/bash\n# The following colors have been defined to help with presentation\
       \ of logs: green, red, label_color, no_color.  \necho -e \"${label_color}Starting\
@@ -124,8 +124,6 @@ stages:
   - name: SLACK_WEBHOOK_PATH
     value: https://hooks.slack.com/services/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
     type: text
-  - name: BLUEMIX_PASSWORD
-    type: secure
   jobs:
   - name: Group deploy
     type: deployer
@@ -135,6 +133,7 @@ stages:
       organization: ${CF_ORGANIZATION}
       space: ${CF_SPACE}
     PORT: '80'
+    CONTAINER_NAME: ${CF_APP}
     DEPLOY_TYPE: red_black
     COMMAND: "#!/bin/bash\n# The following are some example deployment scripts.  Use\
       \ these as is or fork them and include your updates here:\necho -e \"${label_color}Starting\
