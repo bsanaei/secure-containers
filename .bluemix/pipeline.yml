@@ -35,7 +35,7 @@ stages:
     script: |-
       #!/bin/bash
       mvn -B package
-- name: Security Scanning
+- name: DRA Gate Security Scanning
   inputs:
   - type: job
     stage: Maven
@@ -47,7 +47,7 @@ stages:
     value: https://hooks.slack.com/services/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
     type: text
   jobs:
-  - name: DRA Gate Static code analysis
+  - name: Static code analysis
     type: tester
     fail_stage: false
     extension_id: ibm.devops.services.pipeline.appscan.static.builder
